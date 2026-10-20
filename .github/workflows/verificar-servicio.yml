@@ -1,0 +1,42 @@
+name: Verificar servicio de pruebas
+on:
+  push:
+    paths:
+      - '.github/workflows/verificar-servicio.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  servicio:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - name: Comprobar servicio y entrega técnica sin datos reales
+        env:
+          ATTEMPT: verificacion-${{ github.run_id }}
+        run: |
+          python3 - <<'PY'
+          import urllib.request, urllib.parse, json, re, os
+          config=open('config.js',encoding='utf-8').read()
+          url=re.search(r"serviceUrl:\s*'([^']+)'",config).group(1)
+          if not url.startswith('https://script.google.com/macros/s/') or not url.endswith('/exec'):
+              raise SystemExit('URL del servicio no válida')
+          def read(request):
+              with urllib.request.urlopen(request,timeout=45) as r:
+                  return r.status,r.read().decode('utf-8')
+          status, body=read(url)
+          print('Servicio GET:',status)
+          if 'accounts.google.com/ServiceLogin' in body:
+              raise SystemExit('El servicio exige iniciar sesión')
+          payload={'attempt':os.environ['ATTEMPT'],'exam':'matematicas-2023-n01','id':'000000000','name':'PRUEBA TECNICA','surname':'NO ES ESTUDIANTE','answers':[None]*35}
+          data=urllib.parse.urlencode({'payload':json.dumps(payload)}).encode()
+          for n in [1,2]:
+              status,body=read(urllib.request.Request(url,data=data))
+              success='Entrega guardada' in body or 'Entrega ya registrada' in body or 'ya fue registrado' in body
+              print('Entrega técnica',n,': HTTP',status,'comprobante=',success)
+              if not success:
+                  print('Texto diagnóstico:',re.sub('<[^>]+>',' ',body)[-1500:])
+                  raise SystemExit('No se confirmó la entrega técnica')
+          print('Intento técnico:',os.environ['ATTEMPT'])
+          PY
