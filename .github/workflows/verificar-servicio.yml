@@ -17,7 +17,7 @@ jobs:
           ATTEMPT: verificacion-${{ github.run_id }}
         run: |
           python3 - <<'PY'
-          import urllib.request, urllib.parse, json, re, os
+          import urllib.request, urllib.parse, json, re, os, uuid
           config=open('config.js',encoding='utf-8').read()
           url=re.search(r"serviceUrl:\s*'([^']+)'",config).group(1)
           if not url.startswith('https://script.google.com/macros/s/') or not url.endswith('/exec'):
@@ -29,7 +29,7 @@ jobs:
           print('Servicio GET:',status)
           if 'accounts.google.com/ServiceLogin' in body:
               raise SystemExit('El servicio exige iniciar sesión')
-          payload={'attempt':os.environ['ATTEMPT'],'exam':'matematicas-2023-n01','id':'000000000','name':'PRUEBA TECNICA','surname':'NO ES ESTUDIANTE','answers':[None]*35}
+          payload={'attempt':str(uuid.uuid5(uuid.NAMESPACE_URL,os.environ['ATTEMPT'])),'exam':'matematicas-2023-n01','id':'000000000','name':'PRUEBA TECNICA','surname':'NO ES ESTUDIANTE','answers':re.search(r"const key='([^']+)'",open('app.js',encoding='utf-8').read()).group(1).split(' ')}
           data=urllib.parse.urlencode({'payload':json.dumps(payload)}).encode()
           for n in [1,2]:
               status,body=read(urllib.request.Request(url,data=data))
@@ -38,5 +38,5 @@ jobs:
               if not success:
                   print('Texto diagnóstico:',re.sub('<[^>]+>',' ',body)[-1500:])
                   raise SystemExit('No se confirmó la entrega técnica')
-          print('Intento técnico:',os.environ['ATTEMPT'])
+          print('Intento técnico:',payload['attempt'])
           PY
