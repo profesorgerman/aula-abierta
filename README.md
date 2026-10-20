@@ -1,15 +1,29 @@
 # Aula abierta
 
-Sitio publicado: https://profesorgerman.github.io/aula-abierta/
+Sitio: https://profesorgerman.github.io/aula-abierta/
 
-Práctica de Matemáticas Académica nocturna con 35 preguntas A/B/C de la prueba 2023-N01. Incluye páginas originales, reanudación local, calificación y descarga CSV con nombre y sección. El correo es opcional. No hay límite de tiempo.
+Práctica de Matemáticas Académica nocturna 2023-N01: 35 preguntas A/B/C, páginas originales, progreso durante la sesión, calificación, revisión y CSV. Sin límite de tiempo.
 
-Incluye páginas originales, selección de respuestas, progreso local, reanudación, calificación, revisión y descarga CSV. La clave fue resuelta para esta práctica y no es una clave oficial del MEP. Conviene revisión docente antes de usarla para evaluación.
+## Entrega al docente
 
-El servicio para guardar intentos en una hoja privada y consultar los PDF públicos de Drive está preparado en `backend/Code.gs`. Falta autorizarlo e implementarlo en Google Apps Script y colocar su URL en `config.js`; véase `backend/README.md`. Mientras no esté activo, el sitio informa que el envío al docente no está disponible. No contiene datos de estudiantes en GitHub.
+El servicio está configurado en `config.js`. El estudiante completa cédula, nombre y apellidos y acepta el envío. Al finalizar, «Enviar al docente» abre una pestaña con el comprobante. Solo «Entrega guardada» confirma la recepción. Sección y correo son opcionales y solo se incluyen en la descarga local; no se envían al servidor.
 
-La revisión muestra la respuesta esperada; todavía no contiene procedimientos explicados. La clave es pública por ser práctica libre. Los nuevos PDF requieren revisar su clave antes de incorporarlos como prueba interactiva. El catálogo no cambia permisos de Drive ni expone PDF privados.
+El administrador abre el registro privado desde el enlace «Administrador». Los resultados no se publican en GitHub. El servicio calcula la nota y evita duplicar reenvíos del mismo intento.
+
+Verificación real del 19 de octubre de 2026: un intento técnico con 35 respuestas correctas produjo nota 100; dos envíos produjeron una sola fila. Se retiró la fila técnica y se conservaron encabezados y formato. Evidencia: https://github.com/profesorgerman/aula-abierta/actions/runs/39364546623
+
+## Materiales y límites de esta versión
+
+Hay una prueba incorporada. La incorporación automática de nuevos PDF desde Drive todavía no está implementada en el servicio activo. Cada nueva prueba requiere revisar sus páginas y clave antes de publicarla. La revisión actual muestra las respuestas esperadas, sin procedimientos explicados.
+
+La clave es pública y no es oficial del MEP; este sitio es una práctica libre, no una evaluación confidencial. No envía correos automáticos.
+
+## Mantenimiento
+
+- `enhancements.js`: identidad, consentimiento, envío mediante formulario y descarga CSV.
+- `backend/Code.gs`: prototipo anterior, NO es el código del despliegue activo. No reemplazar el servicio publicado con ese archivo.
+- `backend/README.md`: contrato observado del servicio activo.
+- `tests/frontend.test.cjs`: validación del flujo actual de envío.
+- `.github/workflows/verificar-servicio.yml`: comprobación manual con datos ficticios. Crea una fila técnica que debe retirarse tras verificarla.
 
 Fuente: https://drive.google.com/file/d/1vmwWhJF9ccsXXi3qyxMtiw1nQfzvduOZ/view
-
-Verificación: `node --test tests/backend.test.cjs` comprueba calificación, validación, reintentos sin duplicados y exclusión de archivos privados. La verificación real del envío queda pendiente de la autorización de Google.

@@ -1,14 +1,23 @@
-# Activación de Google Apps Script
+# Servicio activo y prototipo anterior
 
-Proyecto preparado: https://script.google.com/home/projects/1eghSZNvilWaOenfOC8l2zOCymMe8fll4x8mQFa4pqV2BwFmwDzk6OaiI/edit
+El servicio activo está autorizado y su URL está en `config.js`. Se verificó una entrega y su reenvío el 19 de octubre de 2026: una sola fila, 35 aciertos de 35 y nota 100. El registro técnico se retiró después.
 
-1. El propietario ejecuta `configurar` y autoriza los permisos de Google. Crea una hoja privada **Aula abierta - Resultados**, guarda su ID en propiedades y comprueba la carpeta de materiales.
-2. Implementar como **Aplicación web**, ejecutar como propietario y permitir acceso a **Cualquier persona**. El servicio solo acepta intentos, calcula su resultado y entrega el catálogo de PDF públicos; nunca entrega la hoja ni los resultados de otros estudiantes.
-3. Copiar la URL `/exec` a `serviceUrl` en `config.js`.
-4. Verificar desde el sitio un intento de prueba: confirmación, fila en la hoja privada y reintento sin duplicados.
+## Contrato observado
 
-La lista se consulta al abrir el sitio. Solo incluye PDF de la carpeta configurada con acceso «Cualquier persona» o «Cualquier persona con el enlace». No modifica permisos. Agregar un PDF al catálogo no lo convierte automáticamente en prueba: hay que revisar preguntas, páginas y clave.
+Se envía un formulario POST con el campo `payload`, cuyo valor es JSON:
 
-No envía correos ni autentica estudiantes. Es práctica libre, no un examen confidencial. Límite global: 1000 envíos nuevos diarios. Incluye validación de datos, protección contra fórmulas, bloqueo de concurrencia y reintentos sin duplicados.
+- `attempt`: UUID estable para todo el intento y sus reenvíos.
+- `exam`: `matematicas-2023-n01`.
+- `id`: cédula introducida por el estudiante.
+- `name`, `surname`: nombre y apellidos.
+- `answers`: 35 valores A/B/C o null.
 
-Estado: código preparado; falta autorización del propietario, implementación y verificación real de Sheets y catálogo. No se han creado registros de estudiantes.
+La respuesta es una página HTML de comprobante. El sitio no debe considerar recibido un intento simplemente porque abrió esa página. El estudiante comprueba «Entrega guardada». El registro privado utiliza la pestaña `Resultados` y los encabezados Intento, Fecha de entrega, Prueba, Cédula, Nombre, Apellidos, Aciertos, Total preguntas, Nota sobre 100, Sin responder, Respuestas, Versión de clave y Huella de entrega.
+
+## Importante para mantenimiento
+
+`Code.gs` se conserva como PROTOTIPO HISTÓRICO. Su JSON, identificador de prueba y esquema de hoja difieren del servicio activo. Sus pruebas locales no validan el despliegue actual. No ejecutarlo para reinstalar o reemplazar el servicio actual.
+
+La incorporación automática de PDF desde Drive no está conectada en esta versión. No se han cambiado permisos de archivos de Drive. No hay envío de correo automático.
+
+Verificación de producción: https://github.com/profesorgerman/aula-abierta/actions/runs/39364546623

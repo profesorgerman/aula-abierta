@@ -1,3 +1,4 @@
+// PROTOTIPO HISTÓRICO: NO CORRESPONDE AL SERVICIO ACTIVO. Véase backend/README.md.
 const FOLDER_ID = '1rQohvZ-n-ZqSDYFWYkgJa3CMYLFz-aXT';
 const EXAM_ID = '2023-N01';
 const ANSWERS = 'C B B B A B A C A B A A A B C B C B B C A A B B A A B B C C C B A C C'.split(' ');

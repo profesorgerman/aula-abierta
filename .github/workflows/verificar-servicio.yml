@@ -1,8 +1,5 @@
 name: Verificar servicio de pruebas
 on:
-  push:
-    paths:
-      - '.github/workflows/verificar-servicio.yml'
   workflow_dispatch:
 permissions:
   contents: read
