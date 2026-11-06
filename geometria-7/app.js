@@ -1,5 +1,5 @@
 'use strict';
-const $=id=>document.getElementById(id), KEY='aula-geometria7-pdf-2026-v1';
+const $=id=>document.getElementById(id), KEY='aula-geometria7-pdf-segunda-2026-v2';
 const blank=()=>({student:'',section:'',answers:Array(24).fill(null),index:0,started:false,finished:false,finishedAt:null});
 let state=blank();
 try{const s=JSON.parse(sessionStorage.getItem(KEY));if(s&&Array.isArray(s.answers)&&s.answers.length===24&&s.answers.every(v=>v===null||[0,1,2].includes(v))&&typeof s.student==='string'&&typeof s.section==='string'&&Number.isInteger(s.index)&&s.index>=0&&s.index<24)state=s;}catch{}

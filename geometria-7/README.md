@@ -1,9 +1,7 @@
 # Geometría de séptimo
 
-Fuente: PDF adjunto «7 Tarea 3 II PER 7º COTB 2026 Geometría.pdf», 2 páginas. Se usa este PDF facilitado después del Word de Drive, cuyos valores eran distintos.
+Actualización: PDF «7 Tarea 3 II PER 7º COTB 2026 Geometría segunda.pdf».
 
-Contiene 24 ejercicios reales: faltan los números 16 y 18 en la numeración original. La práctica renumera 1–24 y conserva el número original para revisión. Un punto por acierto, nota redondeada sobre 100. Figuras recortadas del PDF, clave resuelta con explicaciones.
+Se conservaron intactas las preguntas 1–9 y sus figuras. Se actualizaron únicamente los datos, figuras, opciones y explicaciones de 10–24 para ajustarse al nuevo PDF. Hay 24 ejercicios; los dos de desigualdad triangular sin número impreso se asignan a 16 y 17. Clave revisada: B C C A C C C B A C B A A A B B B B A C C A B A.
 
-Nombre, sección y respuestas se conservan solo en sessionStorage. Descarga CSV e impresión. No hay enlace de entrega ni envío al docente, según petición del usuario. No utiliza el servicio de resultados de 2023-N01.
-
-Verificación DOM: navegación de las 24 preguntas, nota 100 con clave completa, nota 0 con omisiones, revisión, CSV, sesión y borrado del intento.
+Práctica libre con calificación sobre 100, revisión explicada, CSV e impresión. Sin enlace de entrega y sin envío automático. Se cambió la versión de sesión para no mezclar intentos de documentos distintos.
